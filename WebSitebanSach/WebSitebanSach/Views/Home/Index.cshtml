@@ -1,5 +1,6 @@
 ﻿@using WebSiteBanSach.Models;
-@model List<Sach>
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Sach>
 <link href="~/Content/TrangChuCss.css" rel="stylesheet" />
 @{
     Layout = "~/Views/Layout/NguoiDungLayout.cshtml";
@@ -7,7 +8,6 @@
 @*divBody trang index*@
 <h2 style="margin-left:40%;font-weight:700;color:#14ca1b">Sách mới xuất bản</h2>
 <hr />
-
 <div id="divBody" style="background:White;">
     @{int i = 0;}
     @foreach (var item in Model)
@@ -29,17 +29,25 @@
                 <div id="DonGia" style="color:orange"><font color="Green">Giá:</font> @String.Format("{0:0,0}", item.GiaBan) VNĐ</div>
             </div>
             @*<div id="GioHang">
-                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
-                {
-                    <input type="submit" style="cursor:pointer" value="Mua hàng &#xf07a;" id="btnGioHang" class="btn btn-primary">
-                }
-            </div>*@
+                    @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
+                    {
+                        <input type="submit" style="cursor:pointer" value="Mua hàng &#xf07a;" id="btnGioHang" class="btn btn-primary">
+                    }
+                </div>*@
         </div>
         if (i % 3 == 0)
         {
             <div style="clear:both"></div>
         }
     }
-
 </div>
-
+@* Tạo link liên kết các trang*@
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/ @Model.PageCount
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
