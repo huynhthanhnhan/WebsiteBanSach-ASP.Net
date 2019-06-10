@@ -18,7 +18,7 @@ namespace WebSiteBanSach.Controllers
         {
             int pageNumber = (page ?? 1);
             int pageSize = 10;
-            return View(db.Sach.ToList().OrderBy(n => n.MaSach).ToPagedList(pageNumber, pageSize));
+            return View(db.Sach.ToList().OrderByDescending(n => n.MaSach).ToPagedList(pageNumber, pageSize));
         }
         //Thêm mới 
         [HttpGet]
@@ -33,7 +33,6 @@ namespace WebSiteBanSach.Controllers
         [ValidateInput(false)]
         public ActionResult ThemMoi(Sach sach, HttpPostedFileBase fileUpload)
         {
-
 
             //Đưa dữ liệu vào dropdownlist
             ViewBag.MaChuDe = new SelectList(db.ChuDe.ToList().OrderBy(n => n.TenChuDe), "MaChuDe", "TenChuDe");
@@ -63,6 +62,7 @@ namespace WebSiteBanSach.Controllers
                 sach.AnhBia = fileUpload.FileName;
                 db.Sach.Add(sach);
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View();
         }
@@ -86,14 +86,6 @@ namespace WebSiteBanSach.Controllers
         [ValidateInput(false)]
         public ActionResult ChinhSua(Sach sach, FormCollection f)
         {
-            //Sach sach1 = db.Saches.SingleOrDefault(n => n.MaSach == sach.MaSach);
-            //sach1.MoTa = sach.MoTa;
-            //sach1.MoTa = f.Get("abc").ToString();
-            //sach.MoTa = f["abc"].ToString();
-            //db.SaveChanges();
-
-
-
             //Thêm vào cơ sở dữ liệu
             if (ModelState.IsValid)
             {

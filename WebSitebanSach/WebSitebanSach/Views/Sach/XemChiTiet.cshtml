@@ -26,7 +26,7 @@
         <div id="TenSach">@Model.TenSach</div>
         <div id="ChuDe">Chủ đề: @ViewBag.TenChuDe</div>
         <div id="NhaXuatBan">Nhà xuất bản: @ViewBag.NhaXuatBan</div>
-        <div id="Mota">Nội dung tóm tắt:<br />- @Model.MoTa <br /></div>
+        <div id="Mota">Nội dung tóm tắt:<br />@Html.Raw(Model.MoTa)<br /></div>
         @*Dịch dấu chấm động đơn giá sử dụng string.Format("{0:0,0}", tham số)*@
         <div id="Gia"><span style="color: green; font-weight: normal;">Đơn giá:</span><br /><span id="Gia"> @string.Format("{0:0,0}", @Model.GiaBan) VNĐ</span></div>
         @*<br />

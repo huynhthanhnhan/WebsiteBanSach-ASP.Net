@@ -1,24 +1,157 @@
-﻿@using PagedList.Mvc;
-@using PagedList;
-@model PagedList.PagedList<WebSiteBanSach.Models.Sach>
+﻿@model WebSiteBanSach.Models.Sach
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "HienThi";
     Layout = "~/Views/Layout/AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>HienThi</h2>
+@*Thông tin sách chi tiết*@
+@*Hình ảnh*@
+<div id="HinhAnh">
+    <img src="@Url.Content("~/HinhAnhSP/"+Model.AnhBia)" />
+</div>
+@*Thông tin*@
+<div id="ThongTin">
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.MaSach)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaSach)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TenSach)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TenSach)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.GiaBan)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GiaBan)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </dt>
+
+            <dd>
+                @Html.Raw(Model.MoTa)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NgayCapNhat)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NgayCapNhat)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AnhBia)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AnhBia)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SoLuongTon)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SoLuongTon)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ChuDe.TenChuDe)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ChuDe.TenChuDe)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NhaXuatBan.TenNXB)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NhaXuatBan.TenNXB)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Moi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Moi)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<div style="clear:both"></div>
+@*Css Thông tin sách*@
+<style>
+
+    #HinhAnh {
+        float: left;
+    }
+
+    #ThongTin {
+        float: left;
+        width: 600px;
+    }
+
+    #TenSach {
+        font-weight: normal;
+        font-size: 20pt;
+        height: auto;
+        word-wrap: break-word; /*Canh nội dung tự xuống dòng */
+        color: red;
+    }
+
+    #ChuDe, #NhaXuatBan {
+        font-size: 15pt;
+        font-weight: normal;
+        color: black;
+        height: auto;
+    }
+
+    #Mota {
+        font-weight: normal;
+        color: black;
+        word-wrap: break-word;
+        height: auto;
+    }
+
+    #Gia span#Gia {
+        font-weight: normal;
+        color: orange;
+        font-size: 25pt;
+        height: auto;
+    }
+
+    #btnGioHang {
+        font-family: 'FontAwesome','Segoe UI';
+        background-color: red;
+    }
+
+        #btnGioHang:hover {
+            background-color: #a30a11;
+        }
+</style>
 
 <p>
-    @Html.ActionLink("Thêm mới sách", "ThemMoi")
+    @Html.ActionLink("Chỉnh sửa", "ChinhSua", new { @MaSach = Model.MaSach }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>
-@* Tạo link liên kết các trang*@
-Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/ @Model.PageCount
-<div class="MenuTrang">
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
-</div>
-<style>
-    .MenuTrang li {
-        display: inline;
-    }
-</style>
