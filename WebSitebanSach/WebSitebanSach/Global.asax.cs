@@ -13,6 +13,7 @@ namespace WebSiteBanSach
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
         }
     }
 }
