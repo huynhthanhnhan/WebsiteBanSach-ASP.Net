@@ -7,7 +7,7 @@
     Layout = "~/Views/Layout/AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Quản lí sách</h2>
 
 <p>
     @Html.ActionLink("Thêm mới sách", "ThemMoi")
@@ -66,7 +66,7 @@
                 @Html.DisplayFor(modelItem => item.NgayCapNhat)
             </td>
             <td>
-                <div id="AnhBia"><img src="@Url.Content("~/HinhAnhSP/"+item.AnhBia)" width="10" height="150" /></div>
+                <div id="AnhBia"><img src="@Url.Content("~/HinhAnhSP/"+item.AnhBia)" width="28" height="28" /></div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SoLuongTon)
@@ -83,7 +83,7 @@
             <td>
                 @Html.ActionLink("Chỉnh sửa", "ChinhSua", new { @MaSach = item.MaSach }) |
                 @Html.ActionLink("Hiển thị", "HienThi", new { @MaSach = item.MaSach }) |
-                @Html.ActionLink("Xoa", "Xoa", new { @MaSach = item.MaSach })
+                @Html.ActionLink("Xóa", "Xoa", new { @MaSach = item.MaSach })
             </td>
         </tr>
     }
