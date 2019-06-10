@@ -60,13 +60,13 @@
                 @Html.DisplayFor(modelItem => item.GiaBan)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MoTa)
+                @Html.Raw((item.MoTa.Length > 200 ? item.MoTa.Substring(0, 200)+"..." : item.MoTa))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NgayCapNhat)
             </td>
             <td>
-                <div id="AnhBia"><img src="@Url.Content("~/HinhAnhSP/"+item.AnhBia)" width="10" height="150" /></div>
+                <div id="AnhBia" style="width:100px"><img src="@Url.Content("~/HinhAnhSP/"+item.AnhBia)" /></div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SoLuongTon)
@@ -83,7 +83,7 @@
             <td>
                 @Html.ActionLink("Chỉnh sửa", "ChinhSua", new { @MaSach = item.MaSach }) |
                 @Html.ActionLink("Hiển thị", "HienThi", new { @MaSach = item.MaSach }) |
-                @Html.ActionLink("Xoa", "Xoa", new { @MaSach = item.MaSach })
+                @Html.ActionLink("Xoa", "Xoá", new { @MaSach = item.MaSach })
             </td>
         </tr>
     }
