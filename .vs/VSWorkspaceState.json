@@ -4,10 +4,8 @@
     "\\WebSitebanSach",
     "\\WebSitebanSach\\WebSitebanSach",
     "\\WebSitebanSach\\WebSitebanSach\\Controllers",
-    "\\WebSitebanSach\\WebSitebanSach\\Models",
-    "\\WebSitebanSach\\WebSitebanSach\\Views",
     "\\WebSitebanSach\\WebSitebanSach\\Views\\QuanLySanPham"
   ],
-  "SelectedNode": "\\WebSitebanSach\\WebSitebanSach\\Views\\QuanLySanPham\\Index.cshtml",
+  "SelectedNode": "\\WebSitebanSach\\WebSitebanSach.sln",
   "PreviewInSolutionExplorer": false
 }
