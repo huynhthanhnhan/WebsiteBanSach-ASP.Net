@@ -3,8 +3,7 @@
     "",
     "\\WebSitebanSach",
     "\\WebSitebanSach\\WebSitebanSach",
-    "\\WebSitebanSach\\WebSitebanSach\\Controllers",
-    "\\WebSitebanSach\\WebSitebanSach\\Views\\QuanLySanPham"
+    "\\WebSitebanSach\\WebSitebanSach\\Controllers"
   ],
   "SelectedNode": "\\WebSitebanSach\\WebSitebanSach.sln",
   "PreviewInSolutionExplorer": false
