@@ -35,12 +35,11 @@
                 @*Dịch dấu chấm động đơn giá sử dụng string.Format("{0:0,0}", tham số)*@
                 <div id="DonGia" style="color:orange"><font color="Green">Giá:</font> @String.Format("{0:0,0}", item.GiaBan) VNĐ</div>
             </div>
-            @*<div id="GioHang">
-                    @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSach = item.MaSach, @strURL = Request.Url.ToString() }))
-                    {
-                        <input type="submit" style="cursor:pointer" value="Mua hàng &#xf07a;" id="btnGioHang" class="btn btn-primary">
-                    }
-                </div>*@
+            <div id="GioHang">
+                   
+                        <a style="cursor:pointer" href="/giohang/additem?productId=@item.MaSach&quantity=1" class="btn btn-primary">Thêm giỏ hàng</a>
+                   
+             </div>
         </div>
         if (i % 3 == 0)
         {

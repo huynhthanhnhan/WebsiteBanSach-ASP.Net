@@ -1,4 +1,4 @@
-namespace WebSiteBanSach.Models
+﻿namespace WebSiteBanSach.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,26 +19,42 @@ namespace WebSiteBanSach.Models
         public int MaKH { get; set; }
 
         [StringLength(50)]
-        public string HoTen { get; set; }
+		[Display(Name ="Họ tên")]
+		[Required(ErrorMessage = "Mời nhập Họ tên")]
+		public string HoTen { get; set; }
 
-        public DateTime? NgaySinh { get; set; }
+		[Display(Name = "Ngày sinh")]
+		[Required(ErrorMessage = "Mời nhập Ngày sinh")]
+		public DateTime? NgaySinh { get; set; }
 
-        [StringLength(3)]
+		[Display(Name = "Giới tính")]
+		[Required(ErrorMessage = "Mời chọn giới tính")]
+		[StringLength(3)]
         public string GioiTinh { get; set; }
 
-        [StringLength(50)]
+		[Display(Name = "Số điện thoại")]
+		[Required(ErrorMessage = "Mời nhập Số điện thoại")]
+		[StringLength(50)]
         public string DienThoai { get; set; }
 
-        [StringLength(50)]
+		[Display(Name = "Tên tài khoản")]
+		[Required(ErrorMessage = "Mời nhập Tên tài khoản")]
+		[StringLength(50)]
         public string TaiKhoan { get; set; }
 
-        [StringLength(50)]
+		[Display(Name = "Mật khẩu")]
+		[Required(ErrorMessage = "Mời nhập Họ tên")]
+		[StringLength(50)]
         public string MatKhau { get; set; }
 
-        [StringLength(50)]
+		[Display(Name = "Email")]
+		[Required(ErrorMessage = "Mời nhập Email")]
+		[StringLength(50)]
         public string Email { get; set; }
 
-        [StringLength(10)]
+		[Display(Name = "Địa chỉ")]
+		[Required(ErrorMessage = "Mời nhập Địa chỉ")]
+		[StringLength(10)]
         public string DiaChi { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

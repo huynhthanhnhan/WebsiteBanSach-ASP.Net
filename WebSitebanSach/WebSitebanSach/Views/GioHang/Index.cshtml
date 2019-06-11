@@ -1,0 +1,60 @@
+﻿@using WebSiteBanSach.Models
+@model List<GioHang>
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Layout/NguoiDungLayout.cshtml";
+}
+
+@section jsFooter{
+
+
+	<script src="~/Content/javascript/cartController.js"></script>
+}
+<div class="content">
+	<div class="section group">
+		@if (Model.Count > 0)
+		{
+			<table class="table">
+				<thead>
+					<tr>
+						<td>Mã SP</td>
+						<td>Tên SP</td>
+						<td>Ảnh SP</td>
+						<td>Số lượng</td>
+						<td>Đơn giá</td>
+						<td>Thành tiền</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>@item.Sach.MaSach</td>
+							<td>@item.Sach.TenSach</td>
+							<td><img src="HinhAnhSP/@item.Sach.AnhBia" width="100" /></td>
+							<td><input type="text" class="txtQuantity" data-id="@item.Sach.MaSach" value="@item.SoLuong" /></td>
+							<td>@item.Sach.GiaBan.GetValueOrDefault(0).ToString("N0")</td>
+							<td>@((item.Sach.GiaBan.GetValueOrDefault(0) * item.SoLuong).ToString("N0"))</td>
+							<td><a href="#" data-id="@item.Sach.MaSach" class="btn-delete">Xoá</a></td>
+						</tr>
+					}
+
+				</tbody>
+			</table>
+
+			<button id="btnContinue" class="btn">Tiếp tục mua hàng</button>
+			<button id="btnUpdate" class="btn">Cập nhật giỏ hàng</button>
+			<button id="btnDeleteAll" class="btn">Xoá giỏ hàng</button>
+			<button id="btnPayment" class="btn">Thanh toán</button>
+		}
+		else
+		{
+			<span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng</span>
+		}
+
+	</div>
+</div>
+
+

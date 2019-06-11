@@ -22,6 +22,9 @@ namespace WebSiteBanSach.Controllers
 
             return View(db.Sach.Where(n => n.Moi == 1).OrderBy(n => n.GiaBan).ToPagedList(pageNumber, pageSize));
         }
-        
-    }
+
+		
+
+
+	}
 }

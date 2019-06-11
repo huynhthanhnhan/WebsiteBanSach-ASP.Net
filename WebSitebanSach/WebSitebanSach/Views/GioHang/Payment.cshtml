@@ -1,0 +1,71 @@
+﻿@using WebSiteBanSach.Models
+@model List<GioHang>
+
+@{
+	ViewBag.Title = "Payment";
+	Layout = "~/Views/Layout/NguoiDungLayout.cshtml";
+}
+
+<div class="content">
+	<div class="section group">
+		@if (Model.Count > 0)
+		{
+			<table class="table">
+				<thead>
+					<tr>
+						<td>Mã SP</td>
+						<td>Tên SP</td>
+						<td>Ảnh SP</td>
+						<td>Số lượng</td>
+						<td>Đơn giá</td>
+						<td>Thành tiền</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>@item.Sach.MaSach</td>
+							<td>@item.Sach.TenSach</td>
+							<td><img src="~/HinhAnhSP/@item.Sach.AnhBia" width="100" /></td>
+							<td><input type="text" class="txtQuantity" data-id="@item.Sach.MaSach" value="@item.SoLuong" /></td>
+							<td>@item.Sach.GiaBan.GetValueOrDefault(0).ToString("N0")</td>
+							<td>@((item.Sach.GiaBan.GetValueOrDefault(0) * item.SoLuong).ToString("N0"))</td>
+							<td><a href="#" data-id="@item.Sach.MaSach" class="btn-delete">Xoá</a></td>
+						</tr>
+					}
+
+				</tbody>
+			</table>
+		}
+
+	</div>
+	<div class="section group">
+		<div class="col-md-6">
+			@using (Html.BeginForm("Payment", "GioHang", FormMethod.Post))
+			{
+				<div class="form-group">
+					<label>Người nhận</label>
+					<input name="shipName" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>Điện thoại</label>
+					<input name="mobile" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>Địa chỉ</label>
+					<input name="address" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label>Email</label>
+					<input name="email" class="form-control" />
+				</div>
+				<button type="submit" class="btn">Gửi đơn hàng</button>
+			}
+		</div>
+
+	</div>
+</div>
+
+

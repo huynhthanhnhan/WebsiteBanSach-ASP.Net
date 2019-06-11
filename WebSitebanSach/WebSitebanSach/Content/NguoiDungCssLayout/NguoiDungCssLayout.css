@@ -106,3 +106,7 @@ height:30px;
       float:right;
       width:70%;
 }
+#GioHang a {
+	background-color:slategrey;
+	color:white
+}
