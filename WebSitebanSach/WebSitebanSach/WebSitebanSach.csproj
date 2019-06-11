@@ -107,6 +107,10 @@
     <Content Include="Content\font-awesome-4.2.0\css\font-awesome.css" />
     <Content Include="Content\font-awesome-4.2.0\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.2.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\javascript\bootstrap.min.js" />
+    <Content Include="Content\javascript\cartController.js" />
+    <Content Include="Content\javascript\jquery-1.11.3.min.js" />
+    <Content Include="Content\javascript\userController.js" />
     <Content Include="Content\NguoiDungCssLayout\fonts.css" />
     <Content Include="Content\NguoiDungCssLayout\NguoiDungCssLayout.css" />
     <Content Include="Content\NguoiDungCssLayout\screen.css" />
@@ -271,6 +275,7 @@
     <Content Include="Content\TemplateAdmin\typography.html" />
     <Content Include="Content\TemplateAdmin\ui.html" />
     <Content Include="Content\TemplateAdmin\widgets.html" />
+    <Content Include="Content\templateClient\donhang.html" />
     <Content Include="Content\TrangChuCss.css" />
     <Content Include="Global.asax" />
     <Content Include="HinhAnhSP\000001.jpg" />
@@ -462,19 +467,24 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ChuDeController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NguoiDungController.cs" />
     <Compile Include="Controllers\NhaXuatBanController.cs" />
     <Compile Include="Controllers\QuanLySanPhamController.cs" />
     <Compile Include="Controllers\SachController.cs" />
+    <Compile Include="Controllers\TimKiemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChiTietDonHang.cs" />
     <Compile Include="Models\ChuDe.cs" />
     <Compile Include="Models\DonHang.cs" />
+    <Compile Include="Models\GioHang.cs" />
     <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\Metadata\Sach.metadata.cs" />
     <Compile Include="Models\NhaXuatBan.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\QuanLyBanSachModel.cs" />
     <Compile Include="Models\Sach.cs" />
     <Compile Include="Models\sysdiagrams.cs" />
@@ -544,6 +554,15 @@
     <Content Include="tinymce\js\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="tinymce\js\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="tinymce\js\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Views\GioHang\Index.cshtml" />
+    <Content Include="Views\GioHang\Payment.cshtml" />
+    <Content Include="Views\GioHang\Success.cshtml" />
+    <Content Include="Views\GioHang\GioHangPartial.cshtml" />
+    <Content Include="Views\NguoiDung\Index.cshtml" />
+    <Content Include="Views\NguoiDung\DangKy.cshtml" />
+    <Content Include="Views\NguoiDung\DangNhap.cshtml" />
+    <Content Include="Views\GioHang\Fail.cshtml" />
+    <Content Include="Views\TimKiem\KetQuaTimKiem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
