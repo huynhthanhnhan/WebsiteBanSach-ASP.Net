@@ -210,8 +210,8 @@ namespace WebSiteBanSach.Controllers
 				content = content.Replace("{{Total}}", total.ToString("N0"));
 				var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
 
-				SendMail(kh.Email, "Đơn hàng mới từ OnlineShop", content);
-				SendMail(toEmail, "Đơn hàng mới từ OnlineShop", content);
+				SendMail(kh.Email, "Đơn hàng mới từ Cửa hàng bán sách online", content);
+				SendMail(toEmail, "Đơn hàng mới từ Cửa hàng bán sách online", content);
 				
 			}
 			catch (Exception ex)
