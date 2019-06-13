@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -134,65 +136,90 @@ namespace WebSiteBanSach.Controllers
 		[HttpGet]
 		public ActionResult Payment()
 		{
-			var cart = Session[CartSession];
-			var list = new List<GioHang>();
-			if (cart != null)
+			if (Session["TaiKhoan"] != null)
 			{
-				list = (List<GioHang>)cart;
+				var cart = Session[CartSession];
+				var list = new List<GioHang>();
+				if (cart != null)
+				{
+					list = (List<GioHang>)cart;
+				}
+				ViewBag.KhachHang = (KhachHang)Session["TaiKhoan"];
+				return View(list);
 			}
-			return View(list);
+			else
+				return Redirect("/nguoidung/dangnhap");
 		}
 
-		public long Insert(Order order)
+		public long Insert(DonHang order)
 		{
-			//db.Orders.Add(order);
+			db.DonHang.Add(order);
 			db.SaveChanges();
-			return order.ID;
+			return order.MaDonHang;
+		}
+
+		public bool Insert(ChiTietDonHang detail)
+		{
+			try
+			{
+				db.ChiTietDonHang.Add(detail);
+				db.SaveChanges();
+				return true;
+			}
+			catch
+			{
+				return false;
+
+			}
 		}
 
 		[HttpPost]
-		public ActionResult Payment(string shipName, string mobile, string address, string email)
+		public ActionResult Payment(int MaKH)
 		{
-			var order = new Order();
-			order.CreatedDate = DateTime.Now;
-			order.ShipAddress = address;
-			order.ShipMobile = mobile;
-			order.ShipName = shipName;
-			order.ShipEmail = email;
+			var donHang = new DonHang();
+			donHang.NgayDat = DateTime.Now;
+			donHang.NgayGiao = DateTime.Now;
+			donHang.MaKH = MaKH;
+			donHang.TinhTrangGiaoHang = 1;
+			
 
 			try
 			{
-				var id = Insert(order);
+				var id = Insert(donHang);
 				var cart = (List<GioHang>)Session[CartSession];
-				//var detailDao = new Model.Dao.OrderDetailDao();
+				
 				decimal total = 0;
 				foreach (var item in cart)
 				{
-					//var orderDetail = new OrderDetail();
-					//orderDetail.ProductID = item.Product.ID;
-					//orderDetail.OrderID = id;
-					//orderDetail.Price = item.Product.Price;
-					//orderDetail.Quantity = item.Quantity;
-					//detailDao.Insert(orderDetail);
+					var chiTietDonHang = new ChiTietDonHang();
+					chiTietDonHang.MaSach = item.Sach.MaSach;
+					chiTietDonHang.MaDonHang =(int) id;
+					chiTietDonHang.DonGia = item.Sach.GiaBan;
+					chiTietDonHang.SoLuong = item.SoLuong;
+					Insert(chiTietDonHang);
 
-					//total += (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+					total += (item.Sach.GiaBan.GetValueOrDefault(0) * item.SoLuong);
 				}
+				Session[CartSession] = null;
 				string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/templateClient/donhang.html"));
-
-				content = content.Replace("{{CustomerName}}", shipName);
-				content = content.Replace("{{Phone}}", mobile);
-				content = content.Replace("{{Email}}", email);
-				content = content.Replace("{{Address}}", address);
+				KhachHang kh = db.KhachHang.SingleOrDefault(x => x.MaKH == MaKH);
+				content = content.Replace("{{CustomerName}}", kh.HoTen);
+				content = content.Replace("{{Phone}}", kh.DienThoai);
+				content = content.Replace("{{Email}}", kh.Email);
+				content = content.Replace("{{Address}}", kh.DiaChi);
 				content = content.Replace("{{Total}}", total.ToString("N0"));
 				var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
 
-				//new MailHelper().SendMail(email, "Đơn hàng mới từ OnlineShop", content);
-				//new MailHelper().SendMail(toEmail, "Đơn hàng mới từ OnlineShop", content);
+				SendMail(kh.Email, "Đơn hàng mới từ OnlineShop", content);
+				SendMail(toEmail, "Đơn hàng mới từ OnlineShop", content);
+				
 			}
 			catch (Exception ex)
 			{
 				//ghi log
-				return Redirect("/giohang/fail");
+				Console.WriteLine(ex.ToString());
+				ViewBag.Loi = ex.ToString();
+				return View("Fail");
 			}
 			return Redirect("/giohang/success");
 		}
@@ -204,6 +231,29 @@ namespace WebSiteBanSach.Controllers
 		public ActionResult Fail()
 		{
 			return View();
+		}
+		public void SendMail(string toEmailAddress, string subject, string content)
+		{
+			var fromEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"].ToString();
+			var fromEmailDisplayName = ConfigurationManager.AppSettings["FromEmailDisplayName"].ToString();
+			var fromEmailPassword = ConfigurationManager.AppSettings["FromEmailPassword"].ToString();
+			var smtpHost = ConfigurationManager.AppSettings["SMTPHost"].ToString();
+			var smtpPort = ConfigurationManager.AppSettings["SMTPPort"].ToString();
+
+			bool enabledSsl = bool.Parse(ConfigurationManager.AppSettings["EnabledSSL"].ToString());
+
+			string body = content;
+			MailMessage message = new MailMessage(new MailAddress(fromEmailAddress, fromEmailDisplayName), new MailAddress(toEmailAddress));
+			message.Subject = subject;
+			message.IsBodyHtml = true;
+			message.Body = body;
+
+			var client = new SmtpClient();
+			client.Credentials = new NetworkCredential(fromEmailAddress, fromEmailPassword);
+			client.Host = smtpHost;
+			client.EnableSsl = enabledSsl;
+			client.Port = !string.IsNullOrEmpty(smtpPort) ? Convert.ToInt32(smtpPort) : 0;
+			client.Send(message);
 		}
 
 	}

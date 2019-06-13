@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using WebSiteBanSach.Models
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -20,7 +21,7 @@
     <script src="~/NivoSlider/jquery.nivo.slider.pack.js"></script>
 	<script src="~/Content/javascript/jquery-1.11.3.min.js"></script>
 	<script src="~/Content/javascript/bootstrap.min.js"></script>
-
+	
 </head>
 
 <body>
@@ -30,49 +31,71 @@
 				@*Tạo div đăng ký đăng nhập*@
 				<div class="DangKyDangNhap">
 					@Html.Action("GioHangPartial", "GioHang")
-					<i class="fa fa-plug"></i>
-					@Html.ActionLink("Đăng ký", "DangKy", "NguoiDung", null, htmlAttributes: new { @class = "DangKy" })
-					<i class="fa fa-sign-in"></i>
-					@Html.ActionLink("Đăng nhập", "DangNhap", "NguoiDung", null, htmlAttributes: new { @class = "DangNhap" })
+
+					@{
+						var session = (KhachHang)Session["TaiKhoan"];
+					}
+					@if (session == null)
+					{
+						<i class="fa fa-plug"></i>
+						@Html.ActionLink("Đăng ký", "DangKy", "NguoiDung", null, htmlAttributes: new { @class = "DangKy" })
+						<i class="fa fa-sign-in"></i>
+						@Html.ActionLink("Đăng nhập", "DangNhap", "NguoiDung", null, htmlAttributes: new { @class = "DangNhap" })
+					}
+					else
+					{
+						
+							<i>Xin chào:@session.HoTen</i>
+							<a>@Html.ActionLink("Thoát", "DangXuat", "NguoiDung")</a>
+						
+
+					}
+
 
 				</div>
 			</div>
 
 			@*Xây dựng div menu header*@
+			<div id="row">
+				<div class="col-sm-12">
+					<div style="background-color: #026105" class="flash success" id="divDanhMuc">
+						@*Hộp thoại tìm kiếm*@
+						<div id="txtTimKiem">
+							@using (Html.BeginForm("KetQuaTimKiem", "TimKiem", FormMethod.Post))
+							{
+								@Html.TextBox("txtTimKiem", "", htmlAttributes: new { @class = "TextBoxTimKiem", @placeholder = "Từ khóa" })
+								@*Chèn vào image button hình ảnh*@
+								<div id="divHinhAnhTimKiem">
+									<button type="submit"><img src="~/HinhAnh/imgSearch.png" /> </button>
+								</div>
+							}
 
-			<div style="background-color: #026105" class="flash success" id="divDanhMuc">
-				@*Hộp thoại tìm kiếm*@
-				<div id="txtTimKiem">
-					@using (Html.BeginForm("KetQuaTimKiem", "TimKiem", FormMethod.Post))
-					{
-						@Html.TextBox("txtTimKiem", "", htmlAttributes: new { @class = "TextBoxTimKiem", @placeholder = "Từ khóa" })
-						@*Chèn vào image button hình ảnh*@
-						<div id="divHinhAnhTimKiem">
-							<button type="submit"><img src="~/HinhAnh/imgSearch.png" /> </button>
 						</div>
-					}
+						@*Menu bên phải header*@
 
+						<ul class="navMenu">
+							<li>
+								<a href="@Url.Action("Index","Home")">Trang chủ</a>
+							</li>
+							<li>
+								<a href="#">Giới thiệu</a>
+							<li>
+								<a href="#">Liên hệ</a>
+							</li>
+							<li>
+								<a href="#">Hướng dẫn</a>
+							</li>
+							<li>
+								<a href="#">Sách</a>
+							</li>
+
+
+						</ul>
+					</div>
 				</div>
-				@*Menu bên phải header*@
-				<ul class="navMenu">
-					<li>
-						<a href="@Url.Action("Index","Home")">Trang chủ</a>
-					</li>
-					<li>
-						<a href="#">Giới thiệu</a>
-					<li>
-						<a href="#">Liên hệ</a>
-					</li>
-					<li>
-						<a href="#">Hướng dẫn</a>
-					</li>
-					<li>
-						<a href="#">Sách</a>
-					</li>
-
-
-				</ul>
+				
 			</div>
+			
 		</section>
 
 		<section id="divMenuSlider">
