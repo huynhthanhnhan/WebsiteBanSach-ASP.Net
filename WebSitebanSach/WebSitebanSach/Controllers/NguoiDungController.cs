@@ -29,11 +29,20 @@ namespace WebSitebanSach.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				//Chèn dữ liệu vào bảng khách hàng
-				db.KhachHang.Add(kh);
-				//Lưu vào csdl 
-				db.SaveChanges();
+				if(db.KhachHang.SingleOrDefault(x=>x.TaiKhoan==kh.TaiKhoan)==null)
+				{
+					//Chèn dữ liệu vào bảng khách hàng
+					db.KhachHang.Add(kh);
+					//Lưu vào csdl 
+					db.SaveChanges();
+					//ViewBag.ThongBao = "Bạn vừa đăng kí thành công.";
+					Session["TaiKhoan"] = kh;
+					return Redirect("/");
+				}
+				
 			}
+			else
+				ViewBag.ThongBao = "Đăng kí thất bại!";
 			return View();
 		}
 		[HttpGet]
@@ -42,6 +51,12 @@ namespace WebSitebanSach.Controllers
 
 			return View();
 		}
+		public ActionResult DangXuat()
+		{
+			Session["TaiKhoan"] = null;
+			return Redirect("/");
+		}
+
 		[HttpPost]
 		public ActionResult DangNhap(FormCollection f)
 		{
@@ -50,9 +65,9 @@ namespace WebSitebanSach.Controllers
 			KhachHang kh = db.KhachHang.SingleOrDefault(n => n.TaiKhoan == sTaiKhoan && n.MatKhau == sMatKhau);
 			if (kh != null)
 			{
-				ViewBag.ThongBao = "Chúc mừng bạn đăng nhập thành công !";
+				//ViewBag.ThongBao = "Chúc mừng bạn đăng nhập thành công !";
 				Session["TaiKhoan"] = kh;
-				return View();
+				return Redirect("/");
 			}
 			ViewBag.ThongBao = "Tên tài khoản hoặc mật khẩu không đúng!";
 			return View();

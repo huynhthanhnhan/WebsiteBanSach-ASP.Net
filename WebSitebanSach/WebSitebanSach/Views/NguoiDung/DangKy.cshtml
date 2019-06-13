@@ -6,7 +6,8 @@
 }
 
 <div style="padding-left:100px;">
-	@using (Html.BeginForm())
+	<h2>@ViewBag.ThongBao</h2>
+	@using (Html.BeginForm("DangKy","NguoiDung"))
 	{
 		@Html.AntiForgeryToken()
 
@@ -60,7 +61,7 @@
 			<div class="form-group">
 				@Html.LabelFor(model => model.MatKhau, new { @class = "control-label col-md-2" })
 				<div class="col-md-10">
-					@Html.EditorFor(model => model.MatKhau)
+					@Html.EditorFor(model => model.MatKhau,new {@type="password" })
 					@Html.ValidationMessageFor(model => model.MatKhau)
 				</div>
 			</div>

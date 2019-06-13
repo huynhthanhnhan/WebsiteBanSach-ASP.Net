@@ -41,25 +41,33 @@
 		}
 
 	</div>
+	@{ 
+		KhachHang kh = ViewBag.KhachHang;
+	}
 	<div class="section group">
 		<div class="col-md-6">
 			@using (Html.BeginForm("Payment", "GioHang", FormMethod.Post))
 			{
 				<div class="form-group">
 					<label>Người nhận</label>
-					<input name="shipName" class="form-control" />
+					<label class="form-control">@kh.HoTen</label>
 				</div>
 				<div class="form-group">
 					<label>Điện thoại</label>
-					<input name="mobile" class="form-control" />
+					<label class="form-control">@kh.DienThoai</label>
 				</div>
 				<div class="form-group">
 					<label>Địa chỉ</label>
-					<input name="address" class="form-control" />
+					<label class="form-control">@kh.DiaChi</label>
 				</div>
 				<div class="form-group">
 					<label>Email</label>
-					<input name="email" class="form-control" />
+					<label class="form-control">@kh.Email</label>
+				</div>
+				
+				<div class="form-group">
+
+					<input style="display:none" name="MaKH" value="@kh.MaKH" class="form-control" />
 				</div>
 				<button type="submit" class="btn">Gửi đơn hàng</button>
 			}
